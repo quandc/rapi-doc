@@ -1,0 +1,171 @@
+---
+swagger: "2.0"
+info:
+  description: "An example for how to use Restful api with rails-api.\nServer code\
+    \ is available [here](https://github.com/quandc/rapi).\n\n**User Name and Password**\n\
+    * User Name: `abc123@example.com`\n* Password: `12345678`\n"
+  version: "0.0.1"
+  title: "Simple Restful API Rails"
+host: "localhost:3000"
+basePath: "/api/v1"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /auth/sign_in:
+    post:
+      operationId: "authSign_inPOST"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "the authentication JSON that you want to post"
+        required: true
+        schema:
+          $ref: "#/definitions/user"
+      responses:
+        200:
+          description: "Will send `token` if authentication is succesful, otherwise\
+            \ it will send `Unauthorized`"
+      x-swagger-router-controller: "Default"
+  /messages:
+    get:
+      operationId: "messagesGET"
+      parameters:
+      - name: "token"
+        in: "query"
+        description: "the access token get from an user/client"
+        required: true
+        type: "string"
+      - name: "client_id"
+        in: "query"
+        description: "the client id get from an user/client"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "list all message from an user with token and client id"
+      x-swagger-router-controller: "Default"
+    post:
+      operationId: "messagesPOST"
+      parameters:
+      - in: "body"
+        name: "message"
+        description: "the context JSON of message that you want create new with permission\
+          \ via token and client id"
+        required: true
+        schema:
+          $ref: "#/definitions/message"
+      responses:
+        202:
+          description: "Sends the create new message success"
+      x-swagger-router-controller: "Default"
+  /messages/{messageId}:
+    get:
+      operationId: "messagesMessageIdGET"
+      parameters:
+      - name: "messageId"
+        in: "path"
+        description: "id of the message"
+        required: true
+        type: "integer"
+      - name: "token"
+        in: "query"
+        description: "the access token get from an user/client"
+        required: true
+        type: "string"
+      - name: "client_id"
+        in: "query"
+        description: "the client id get from an user/client"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Sends the message with message Id"
+      x-swagger-router-controller: "Default"
+    put:
+      operationId: "messagesMessageIdPUT"
+      parameters:
+      - name: "messageId"
+        in: "path"
+        description: "id of the message"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "message"
+        description: "the context JSON of message that you want update with permission\
+          \ via token and client id"
+        required: false
+        schema:
+          $ref: "#/definitions/message_1"
+      responses:
+        202:
+          description: "Sends the update message success"
+      x-swagger-router-controller: "Default"
+    delete:
+      operationId: "messagesMessageIdDELETE"
+      parameters:
+      - name: "messageId"
+        in: "path"
+        description: "id of the message"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "message"
+        description: "the context JSON of message that you want update with permission\
+          \ via token and client id"
+        required: false
+        schema:
+          $ref: "#/definitions/message_2"
+      responses:
+        202:
+          description: "Sends the update message success"
+      x-swagger-router-controller: "Default"
+definitions:
+  message_2:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      password:
+        type: "string"
+      category:
+        type: "string"
+      context:
+        type: "string"
+    title: "message"
+  message_1:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      password:
+        type: "string"
+      category:
+        type: "string"
+      context:
+        type: "string"
+    title: "message"
+  message:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      password:
+        type: "string"
+      category:
+        type: "string"
+      context:
+        type: "string"
+    title: "message"
+  user:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+    title: "user"

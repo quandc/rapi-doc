@@ -1,0 +1,16 @@
+{
+  "name": "simple-restful-api-rails",
+  "version": "0.0.1",
+  "description": "An example for how to use Restful api with rails-api.\nServer code is available [here](https://github.com/quandc/rapi).\n\n**User Name and Password**\n* User Name: `abc123@example.com`\n* Password: `12345678`\n",
+  "main": "index.js",
+  "keywords": [
+    "swagger"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.9.*"
+  }
+}
