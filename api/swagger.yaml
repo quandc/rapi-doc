@@ -30,6 +30,10 @@ paths:
         200:
           description: "Will send `token` if authentication is succesful, otherwise\
             \ it will send `Unauthorized`"
+        400:
+          description: "Send error message when can't create new token"
+        401:
+          description: "Send error message with Invalid login credentials"
       x-swagger-router-controller: "Default"
   /messages:
     get:
@@ -48,6 +52,10 @@ paths:
       responses:
         200:
           description: "list all message from an user with token and client id"
+        400:
+          description: "send error message when get message"
+        401:
+          description: "Authorized invalid or don't have permission"
       x-swagger-router-controller: "Default"
     post:
       operationId: "messagesPOST"
@@ -61,7 +69,11 @@ paths:
           $ref: "#/definitions/message"
       responses:
         202:
-          description: "Sends the create new message success"
+          description: "Send the create new message success"
+        400:
+          description: "send error message when create new message"
+        401:
+          description: "Authorized invalid or don't have permission"
       x-swagger-router-controller: "Default"
   /messages/{messageId}:
     get:
@@ -85,6 +97,10 @@ paths:
       responses:
         200:
           description: "Sends the message with message Id"
+        400:
+          description: "send error message when get message with id"
+        401:
+          description: "Authorized invalid or don't have permission"
       x-swagger-router-controller: "Default"
     put:
       operationId: "messagesMessageIdPUT"
@@ -104,6 +120,10 @@ paths:
       responses:
         202:
           description: "Sends the update message success"
+        400:
+          description: "send error message when update message with id"
+        401:
+          description: "Authorized invalid or don't have permission"
       x-swagger-router-controller: "Default"
     delete:
       operationId: "messagesMessageIdDELETE"
@@ -123,8 +143,20 @@ paths:
       responses:
         202:
           description: "Sends the update message success"
+        400:
+          description: "send error message when delete message with id"
+        401:
+          description: "Authorized invalid or don't have permission"
       x-swagger-router-controller: "Default"
 definitions:
+  authsign_in_user:
+    properties:
+      password:
+        type: "string"
+        default: "12345678"
+      email:
+        type: "string"
+        default: "abc123@example.com"
   message_2:
     type: "object"
     properties:
@@ -154,7 +186,7 @@ definitions:
     properties:
       token:
         type: "string"
-      password:
+      client_id:
         type: "string"
       category:
         type: "string"
@@ -164,8 +196,6 @@ definitions:
   user:
     type: "object"
     properties:
-      email:
-        type: "string"
-      password:
-        type: "string"
-    title: "user"
+      user:
+        $ref: "#/definitions/authsign_in_user"
+    title: "context"
