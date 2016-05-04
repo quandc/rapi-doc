@@ -49,6 +49,11 @@ paths:
         description: "the client id get from an user/client"
         required: true
         type: "string"
+      - name: "category"
+        in: "query"
+        description: "the category get from an user/client"
+        required: false
+        type: "string"
       responses:
         200:
           description: "list all message from an user with token and client id"
@@ -163,10 +168,6 @@ definitions:
       token:
         type: "string"
       password:
-        type: "string"
-      category:
-        type: "string"
-      context:
         type: "string"
     title: "message"
   message_1:

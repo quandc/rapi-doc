@@ -16,6 +16,7 @@ exports.messagesGET = function(args, res, next) {
    * parameters expected in the args:
   * token (String)
   * clientId (String)
+  * category (String)
   **/
   // no response value expected for this operation
   
